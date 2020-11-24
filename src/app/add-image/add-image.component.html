@@ -1,0 +1,32 @@
+
+<div class="col-md-6 offset-md-3">
+<h3> Add your image </h3>
+
+
+  <div class="form-group">
+    <label> Add new URL </label>
+    <input type="text" class="form-control" id = "url" [(ngModel)] = "image.url" name="url" >
+  </div>
+
+
+  <div>
+    <label > Check language  </label>
+    <select [(ngModel)]=image.language > //(ngModelChange)="getText($event)" для авто выбора
+      <option *ngFor="let oneOption of languages" [ngValue]="oneOption">{{oneOption}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+  <label for="text">Text</label>
+  <textarea class="form-control rounded-0" id = "text" [(ngModel)] = "image.text" name="text" rows="3"></textarea>
+  </div>
+
+  <div class="btn-group mr-2" role="group" aria-label="Second group">
+    <button class="btn btn-success" (click)="getText()" > Submit </button>
+    <button class="btn btn-primary" (click)="cleanArea()" > Clean </button>
+    <button class="btn btn-primary" (click)="saveText()" > Save </button>
+  </div>
+  <div class="card-body" *ngIf="image.url">
+    <img class="card-img-top" src="{{image.url}}" alt="Card image cap">
+  </div>
+
+</div>

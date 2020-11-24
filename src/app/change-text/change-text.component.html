@@ -1,0 +1,20 @@
+
+<div class="col-md-6 offset-md-3">
+  <h3> Change text </h3>
+
+
+
+  <div class="form-group">
+    <label for="text">Write and save</label>
+    <textarea class="form-control rounded-0" id = "text" [(ngModel)] = "image.text" name="text" rows="3"></textarea>
+  </div>
+
+  <div class="btn-group mr-2" role="group" aria-label="Second group">
+    <button class="btn btn-primary" (click)="cleanArea()" > Clean </button>
+    <button class="btn btn-primary" (click)="saveText()" > Save </button>
+  </div>
+  <div class="card-body" *ngIf="image.url">
+    <img class="card-img-top" src="{{image.url}}" alt="Card image cap">
+  </div>
+
+</div>

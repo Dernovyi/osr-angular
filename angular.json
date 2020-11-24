@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "osr-angular"
+  "defaultProject": "osr-angular",
+  "cli": {
+    "analytics": false
+  }
 }

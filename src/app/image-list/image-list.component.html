@@ -1,0 +1,22 @@
+<h2>Image List</h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Image</th>
+    <th>Text</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let image of images">
+    <td>{{image.id}}</td>
+    <img class="shadow-sm" src="{{image.url}}" width="250px" >
+    <td>{{image.text}}</td>
+    <td>
+      <button class="btn btn-primary" (click)="saveText(image.id)" > Change Text </button>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
