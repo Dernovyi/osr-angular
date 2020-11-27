@@ -8,7 +8,7 @@ import {AddImageComponent} from './add-image/add-image.component';
 import {ChangeTextComponent} from './change-text/change-text.component';
 import {AppRoutingModule} from '../app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,10 +18,11 @@ import {FormsModule} from '@angular/forms';
     ChangeTextComponent
   ],
     imports: [
-      BrowserModule,
-      AppRoutingModule,
-      HttpClientModule,
-      FormsModule
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,7 +8,9 @@ import {Image} from './image';
 })
 export class ImageService {
 
-  private baseUrl = 'https://osr-azure.herokuapp.com/picture';
+  // private baseUrl = 'https://osr-azure.herokuapp.com/picture';
+  private baseUrl = 'http://localhost:8080/picture';
+  private urlToBox = 'http://localhost:8080/drop';
   constructor( private httpClient: HttpClient) { }
   // @ts-ignore
   public getImageList(): Observable<Image[]>{
@@ -20,10 +22,13 @@ export class ImageService {
   public getLanguage(): Observable<string[]>{
     return this.httpClient.get<string[]>(`${this.baseUrl}/lang`);
   }
-  public addNewImage(image: Image): Observable<Image>{
+  public addNewImageForRead(image: Image): Observable<Image>{
     return this.httpClient.post<Image>(`${this.baseUrl}`, image);
   }
   public saveImage(image: Image): Observable<Image>{
     return this.httpClient.put<Image>(`${this.baseUrl}`, image);
+  }
+  public addImageToStorage(formData: FormData): Observable<Image>{
+    return this.httpClient.post<Image>(`${this.urlToBox}`, formData);
   }
 }

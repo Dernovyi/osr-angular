@@ -1,15 +1,21 @@
 
 <div class="col-md-6 offset-md-3">
-<h3> Add your image </h3>
-
-
   <div class="form-group">
+    <label> Application reads .jpeg .png .pdf .bmp</label></div>
+
+  <div class="form-group" >
     <label> Add new URL </label>
-    <input type="text" class="form-control" id = "url" [(ngModel)] = "image.url" name="url" >
+    <input type="url" class="form-control" id = "url" [(ngModel)] = "image.url" name="url" placeholder="http://..." (focus)="cleanArea()">
   </div>
 
+  <form>
+      <div class="form-group">
+      <label for="imgInp">Add your file</label>
+      <input type="file" #input  class="form-control-file" id="imgInp" name="file" (change)="onFileSelected($event)" (focus)="cleanArea()" >
+    </div>
+  </form>
 
-  <div>
+  <div >
     <label > Check language  </label>
     <select [(ngModel)]=image.language > //(ngModelChange)="getText($event)" для авто выбора
       <option *ngFor="let oneOption of languages" [ngValue]="oneOption">{{oneOption}}</option>
@@ -28,5 +34,4 @@
   <div class="card-body" *ngIf="image.url">
     <img class="card-img-top" src="{{image.url}}" alt="Card image cap">
   </div>
-
 </div>

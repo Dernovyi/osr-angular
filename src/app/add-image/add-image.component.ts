@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, Output, ViewChild} from '@angular/core';
 import {Image} from '../image';
 import {ImageService} from '../image.service';
 
@@ -9,16 +9,17 @@ import {ImageService} from '../image.service';
   styleUrls: ['./add-image.component.css']
 })
 export class AddImageComponent implements OnInit {
-
+  @ViewChild('input' ) inputRef: ElementRef;
   image: Image = new Image();
   languages: string[];
   text: string;
-  constructor(private imageService: ImageService) { }
+  selectedFile: File = null;
+
+  constructor( private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.getAllLang();
   }
-
 
   getAllLang(): void {
     this.imageService.getLanguage().subscribe( data => {
@@ -27,16 +28,18 @@ export class AddImageComponent implements OnInit {
   }
 
   getText(): void {
-    this.image.url.trim();
     if ( this.image.language === undefined){
       this.image.language = 'unk';
     }
-    if ( this.image.url !== undefined){
-      this.imageService.addNewImage(this.image).subscribe( data => {
+    if ( this.image.url !== null && this.image.url !== undefined && this.image.url !== ''){
+      this.image.url.trim();
+      this.imageService.addNewImageForRead(this.image).subscribe( data => {
           this.image = data;
-          console.log(this.image);
         },
         error => console.log(error));
+    } else if (this.selectedFile !== null){
+        this.saveImageToAzure();
+        this.inputRef.nativeElement.value = '';
     }
   }
 
@@ -44,12 +47,32 @@ export class AddImageComponent implements OnInit {
     this.image.text = '';
     this.image.url = '';
     this.image.language = 'unk';
+    this.selectedFile = null;
+    this.inputRef.nativeElement.value = '';
+
   }
 
+  // метод для сохранения редактированного текста
   saveText(): void {
-    this.imageService.saveImage(this.image).subscribe( data => {
-      this.image = data;
-    },
+    if (this.image.url !== null && this.image.url !== undefined && this.image.url !== ''){
+      this.imageService.saveImage(this.image).subscribe( data => {
+          this.image = data;
+        },
+        error => console.log(error));
+    }
+  }
+  saveImageToAzure(): void{
+    const formData = new FormData();
+    formData.append('file', this.selectedFile , this.selectedFile.name);
+    this.imageService.addImageToStorage(formData).subscribe(data => {
+        this.image = data;
+        this.selectedFile = null;
+      },
       error => console.log(error));
+  }
+
+  onFileSelected(event): void {
+    this.selectedFile =  event.target.files[0];
+
   }
 }
