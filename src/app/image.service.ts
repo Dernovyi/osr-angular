@@ -7,10 +7,10 @@ import {Image} from './image';
   providedIn: 'root'
 })
 export class ImageService {
-
-  // private baseUrl = 'https://osr-azure.herokuapp.com/picture';
-  private baseUrl = 'http://localhost:8080/picture';
-  private urlToBox = 'http://localhost:8080/drop';
+  // private baseUrl = 'http://localhost:8080/picture';
+  // private urlToBox = 'http://localhost:8080/drop';
+  private baseUrl = 'https://osr-azure.herokuapp.com/picture';
+  private urlToBox = 'https://osr-azure.herokuapp.com/drop';
   constructor( private httpClient: HttpClient) { }
   // @ts-ignore
   public getImageList(): Observable<Image[]>{
